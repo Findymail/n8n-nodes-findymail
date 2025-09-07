@@ -49,6 +49,18 @@ export class FindyMail implements INodeType {
 						description: 'Verify if an email address is valid and deliverable',
 						action: 'Verify email',
 					},
+					{
+						name: 'Find Phone',
+						value: 'findPhone',
+						description: 'Find phone number from LinkedIn profile URL',
+						action: 'Find phone',
+					},
+					{
+						name: 'Find Employees',
+						value: 'findEmployees',
+						description: 'Find employees from a company domain',
+						action: 'Find employees',
+					},
 				],
 				default: 'findFromName',
 			},
@@ -105,6 +117,32 @@ export class FindyMail implements INodeType {
 				},
 			},
 			{
+				displayName: 'Phone LinkedIn URL',
+				name: 'phoneLinkedinUrl',
+				type: 'string',
+				default: '',
+				placeholder: 'https://www.linkedin.com/in/johndoe',
+				description: 'The LinkedIn profile URL to find phone number from',
+				displayOptions: {
+					show: {
+						operation: ['findPhone'],
+					},
+				},
+			},
+			{
+				displayName: 'Company Domain',
+				name: 'companyDomain',
+				type: 'string',
+				default: '',
+				placeholder: 'example.com',
+				description: 'The company domain to find employees from',
+				displayOptions: {
+					show: {
+						operation: ['findEmployees'],
+					},
+				},
+			},
+			{
 				displayName: 'Additional Options',
 				name: 'additionalOptions',
 				type: 'collection',
@@ -112,7 +150,7 @@ export class FindyMail implements INodeType {
 				default: {},
 				displayOptions: {
 					show: {
-						operation: ['findFromName', 'findFromLinkedin', 'verifyEmail'],
+						operation: ['findFromName', 'findFromLinkedin', 'verifyEmail', 'findPhone', 'findEmployees'],
 					},
 				},
 				options: [
@@ -247,6 +285,86 @@ export class FindyMail implements INodeType {
 						{
 							method: 'POST',
 							url: 'https://app.findymail.com/api/verify',
+							body: requestBody,
+							json: true,
+						},
+					);
+
+					// Process the response
+					const responseData = {
+						json: response,
+						pairedItem: itemIndex,
+					};
+
+					returnData.push(responseData);
+				} else if (operation === 'findPhone') {
+					const phoneLinkedinUrl = this.getNodeParameter('phoneLinkedinUrl', itemIndex) as string;
+					const additionalOptions = this.getNodeParameter('additionalOptions', itemIndex) as {
+						webhook_url?: string;
+					};
+
+					// Validate required parameters
+					if (!phoneLinkedinUrl) {
+						throw new NodeOperationError(this.getNode(), 'Phone LinkedIn URL is a required parameter');
+					}
+
+					// Prepare request body
+					const requestBody: any = {
+						linkedin_url: phoneLinkedinUrl,
+					};
+
+					// Add optional parameters if provided
+					if (additionalOptions.webhook_url) {
+						requestBody.webhook_url = additionalOptions.webhook_url;
+					}
+
+					// Make API request
+					const response = await this.helpers.requestWithAuthentication.call(
+						this,
+						'findyMailApi',
+						{
+							method: 'POST',
+							url: 'https://app.findymail.com/api/search/phone',
+							body: requestBody,
+							json: true,
+						},
+					);
+
+					// Process the response
+					const responseData = {
+						json: response,
+						pairedItem: itemIndex,
+					};
+
+					returnData.push(responseData);
+				} else if (operation === 'findEmployees') {
+					const companyDomain = this.getNodeParameter('companyDomain', itemIndex) as string;
+					const additionalOptions = this.getNodeParameter('additionalOptions', itemIndex) as {
+						webhook_url?: string;
+					};
+
+					// Validate required parameters
+					if (!companyDomain) {
+						throw new NodeOperationError(this.getNode(), 'Company domain is a required parameter');
+					}
+
+					// Prepare request body
+					const requestBody: any = {
+						website: companyDomain,
+					};
+
+					// Add optional parameters if provided
+					if (additionalOptions.webhook_url) {
+						requestBody.webhook_url = additionalOptions.webhook_url;
+					}
+
+					// Make API request
+					const response = await this.helpers.requestWithAuthentication.call(
+						this,
+						'findyMailApi',
+						{
+							method: 'POST',
+							url: 'https://app.findymail.com/api/search/employees',
 							body: requestBody,
 							json: true,
 						},
