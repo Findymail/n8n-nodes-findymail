@@ -1,0 +1,115 @@
+{
+	"name": "FindyMail",
+	"displayName": "FindyMail",
+	"description": "Find email addresses using FindyMail API",
+	"icon": "file:findymail.svg",
+	"group": ["input"],
+	"codex": {
+		"categories": ["Communication"],
+		"subcategories": {
+			"Communication": ["Email"]
+		},
+		"resources": {
+			"primaryDocumentation": [
+				{
+					"url": "https://app.findymail.com/docs/"
+				}
+			]
+		}
+	},
+	"defaults": {
+		"name": "FindyMail"
+	},
+	"inputs": ["main"],
+	"outputs": ["main"],
+	"credentials": [
+		{
+			"name": "findyMailApi",
+			"required": true
+		}
+	],
+	"properties": [
+		{
+			"displayName": "Operation",
+			"name": "operation",
+			"type": "options",
+			"noDataExpression": true,
+			"options": [
+				{
+					"name": "Find from Name",
+					"value": "findFromName",
+					"description": "Find email address from first name, last name, and domain",
+					"action": "Find email from name"
+				}
+			],
+			"default": "findFromName"
+		},
+		{
+			"displayName": "First Name",
+			"name": "firstName",
+			"type": "string",
+			"default": "",
+			"placeholder": "John",
+			"description": "The first name of the person",
+			"displayOptions": {
+				"show": {
+					"operation": ["findFromName"]
+				}
+			}
+		},
+		{
+			"displayName": "Last Name",
+			"name": "lastName",
+			"type": "string",
+			"default": "",
+			"placeholder": "Doe",
+			"description": "The last name of the person",
+			"displayOptions": {
+				"show": {
+					"operation": ["findFromName"]
+				}
+			}
+		},
+		{
+			"displayName": "Domain",
+			"name": "domain",
+			"type": "string",
+			"default": "",
+			"placeholder": "example.com",
+			"description": "The company domain to search for the email",
+			"displayOptions": {
+				"show": {
+					"operation": ["findFromName"]
+				}
+			}
+		},
+		{
+			"displayName": "Additional Options",
+			"name": "additionalOptions",
+			"type": "collection",
+			"placeholder": "Add Option",
+			"default": {},
+			"displayOptions": {
+				"show": {
+					"operation": ["findFromName"]
+				}
+			},
+			"options": [
+				{
+					"displayName": "Company",
+					"name": "company",
+					"type": "string",
+					"default": "",
+					"description": "The company name (optional)"
+				},
+				{
+					"displayName": "Country",
+					"name": "country",
+					"type": "string",
+					"default": "",
+					"description": "The country code (optional)"
+				}
+			]
+		}
+	]
+}
