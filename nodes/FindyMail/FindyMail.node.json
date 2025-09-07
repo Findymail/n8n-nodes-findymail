@@ -40,6 +40,18 @@
 					"value": "findFromName",
 					"description": "Find email address from first name, last name, and domain",
 					"action": "Find email from name"
+				},
+				{
+					"name": "Find from Linkedin",
+					"value": "findFromLinkedin",
+					"description": "Find email address from Linkedin profile URL",
+					"action": "Find email from Linkedin"
+				},
+				{
+					"name": "Verify Email",
+					"value": "verifyEmail",
+					"description": "Verify if an email address is valid and deliverable",
+					"action": "Verify email"
 				}
 			],
 			"default": "findFromName"
@@ -71,6 +83,32 @@
 			}
 		},
 		{
+			"displayName": "Linkedin URL",
+			"name": "linkedinUrl",
+			"type": "string",
+			"default": "",
+			"placeholder": "https://www.linkedin.com/in/johndoe",
+			"description": "The Linkedin profile URL of the person",
+			"displayOptions": {
+				"show": {
+					"operation": ["findFromLinkedin"]
+				}
+			}
+		},
+		{
+			"displayName": "Email",
+			"name": "email",
+			"type": "string",
+			"default": "",
+			"placeholder": "example@example.com",
+			"description": "The email address to verify",
+			"displayOptions": {
+				"show": {
+					"operation": ["verifyEmail"]
+				}
+			}
+		},
+		{
 			"displayName": "Additional Options",
 			"name": "additionalOptions",
 			"type": "collection",
@@ -78,7 +116,7 @@
 			"default": {},
 			"displayOptions": {
 				"show": {
-					"operation": ["findFromName"]
+					"operation": ["findFromName", "findFromLinkedin", "verifyEmail"]
 				}
 			},
 			"options": [

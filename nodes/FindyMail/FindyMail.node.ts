@@ -37,6 +37,18 @@ export class FindyMail implements INodeType {
 						description: 'Find email address from name and company',
 						action: 'Find email from name',
 					},
+					{
+						name: 'Find From Linkedin',
+						value: 'findFromLinkedin',
+						description: 'Find email address from Linkedin profile URL',
+						action: 'Find email from Linkedin',
+					},
+					{
+						name: 'Verify Email',
+						value: 'verifyEmail',
+						description: 'Verify if an email address is valid and deliverable',
+						action: 'Verify email',
+					},
 				],
 				default: 'findFromName',
 			},
@@ -67,6 +79,32 @@ export class FindyMail implements INodeType {
 				},
 			},
 			{
+				displayName: 'Linkedin URL',
+				name: 'linkedinUrl',
+				type: 'string',
+				default: '',
+				placeholder: 'https://www.linkedin.com/in/johndoe',
+				description: 'The Linkedin profile URL of the person',
+				displayOptions: {
+					show: {
+						operation: ['findFromLinkedin'],
+					},
+				},
+			},
+			{
+				displayName: 'Email',
+				name: 'email',
+				type: 'string',
+				default: '',
+				placeholder: 'example@example.com',
+				description: 'The email address to verify',
+				displayOptions: {
+					show: {
+						operation: ['verifyEmail'],
+					},
+				},
+			},
+			{
 				displayName: 'Additional Options',
 				name: 'additionalOptions',
 				type: 'collection',
@@ -74,7 +112,7 @@ export class FindyMail implements INodeType {
 				default: {},
 				displayOptions: {
 					show: {
-						operation: ['findFromName'],
+						operation: ['findFromName', 'findFromLinkedin', 'verifyEmail'],
 					},
 				},
 				options: [
@@ -129,6 +167,86 @@ export class FindyMail implements INodeType {
 						{
 							method: 'POST',
 							url: 'https://app.findymail.com/api/search/name',
+							body: requestBody,
+							json: true,
+						},
+					);
+
+					// Process the response
+					const responseData = {
+						json: response,
+						pairedItem: itemIndex,
+					};
+
+					returnData.push(responseData);
+				} else if (operation === 'findFromLinkedin') {
+					const linkedinUrl = this.getNodeParameter('linkedinUrl', itemIndex) as string;
+					const additionalOptions = this.getNodeParameter('additionalOptions', itemIndex) as {
+						webhook_url?: string;
+					};
+
+					// Validate required parameters
+					if (!linkedinUrl) {
+						throw new NodeOperationError(this.getNode(), 'Linkedin URL is a required parameter');
+					}
+
+					// Prepare request body
+					const requestBody: any = {
+						linkedin_url: linkedinUrl,
+					};
+
+					// Add optional parameters if provided
+					if (additionalOptions.webhook_url) {
+						requestBody.webhook_url = additionalOptions.webhook_url;
+					}
+
+					// Make API request
+					const response = await this.helpers.requestWithAuthentication.call(
+						this,
+						'findyMailApi',
+						{
+							method: 'POST',
+							url: 'https://app.findymail.com/api/search/linkedin',
+							body: requestBody,
+							json: true,
+						},
+					);
+
+					// Process the response
+					const responseData = {
+						json: response,
+						pairedItem: itemIndex,
+					};
+
+					returnData.push(responseData);
+				} else if (operation === 'verifyEmail') {
+					const email = this.getNodeParameter('email', itemIndex) as string;
+					const additionalOptions = this.getNodeParameter('additionalOptions', itemIndex) as {
+						webhook_url?: string;
+					};
+
+					// Validate required parameters
+					if (!email) {
+						throw new NodeOperationError(this.getNode(), 'Email is a required parameter');
+					}
+
+					// Prepare request body
+					const requestBody: any = {
+						email: email,
+					};
+
+					// Add optional parameters if provided
+					if (additionalOptions.webhook_url) {
+						requestBody.webhook_url = additionalOptions.webhook_url;
+					}
+
+					// Make API request
+					const response = await this.helpers.requestWithAuthentication.call(
+						this,
+						'findyMailApi',
+						{
+							method: 'POST',
+							url: 'https://app.findymail.com/api/verify',
 							body: requestBody,
 							json: true,
 						},
