@@ -45,25 +45,12 @@
 			"default": "findFromName"
 		},
 		{
-			"displayName": "First Name",
-			"name": "firstName",
+			"displayName": "Name",
+			"name": "name",
 			"type": "string",
 			"default": "",
-			"placeholder": "John",
-			"description": "The first name of the person",
-			"displayOptions": {
-				"show": {
-					"operation": ["findFromName"]
-				}
-			}
-		},
-		{
-			"displayName": "Last Name",
-			"name": "lastName",
-			"type": "string",
-			"default": "",
-			"placeholder": "Doe",
-			"description": "The last name of the person",
+			"placeholder": "John Doe",
+			"description": "The full name of the person",
 			"displayOptions": {
 				"show": {
 					"operation": ["findFromName"]
@@ -96,18 +83,12 @@
 			},
 			"options": [
 				{
-					"displayName": "Company",
-					"name": "company",
+					"displayName": "Webhook URL",
+					"name": "webhook_url",
 					"type": "string",
 					"default": "",
-					"description": "The company name (optional)"
-				},
-				{
-					"displayName": "Country",
-					"name": "country",
-					"type": "string",
-					"default": "",
-					"description": "The country code (optional)"
+					"placeholder": "https://your-webhook-url.com",
+					"description": "URL to receive the result asynchronously (optional)"
 				}
 			]
 		}

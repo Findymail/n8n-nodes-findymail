@@ -6,10 +6,11 @@
     "n8n-community-node-package"
   ],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://www.findymail.com",
   "author": {
-    "name": "n8n Community",
-    "email": "community@n8n.io"
+    "name": "Findymail",
+    "email": "support@findymail.com",
+    "url": "https://www.findymail.com"
   },
   "repository": {
     "type": "git",
@@ -33,13 +34,9 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/ExampleCredentialsApi.credentials.js",
-      "dist/credentials/HttpBinApi.credentials.js",
       "dist/credentials/FindyMailApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/ExampleNode/ExampleNode.node.js",
-      "dist/nodes/HttpBin/HttpBin.node.js",
       "dist/nodes/FindyMail/FindyMail.node.js"
     ]
   },

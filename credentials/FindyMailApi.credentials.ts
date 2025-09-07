@@ -28,7 +28,7 @@ export class FindyMailApi implements ICredentialType {
 		type: 'generic',
 		properties: {
 			headers: {
-				'X-API-Key': '={{$credentials.apiKey}}',
+				Authorization: '={{"Bearer " + $credentials.apiKey}}',
 			},
 		},
 	};
@@ -36,14 +36,9 @@ export class FindyMailApi implements ICredentialType {
 	// The block below tells how this credential can be tested
 	test: ICredentialTestRequest = {
 		request: {
-			baseURL: 'https://api.findymail.com',
-			url: '/v1/email-finder/find-from-name',
-			method: 'POST',
-			body: {
-				first_name: 'test',
-				last_name: 'test',
-				domain: 'example.com',
-			},
+			baseURL: 'https://app.findymail.com',
+			url: '/api/credits',
+			method: 'GET',
 		},
 	};
 }

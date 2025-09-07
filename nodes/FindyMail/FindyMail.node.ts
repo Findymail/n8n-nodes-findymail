@@ -34,32 +34,19 @@ export class FindyMail implements INodeType {
 					{
 						name: 'Find From Name',
 						value: 'findFromName',
-						description: 'Find email address from first name, last name, and domain',
+						description: 'Find email address from name and company',
 						action: 'Find email from name',
 					},
 				],
 				default: 'findFromName',
 			},
 			{
-				displayName: 'First Name',
-				name: 'firstName',
+				displayName: 'Name',
+				name: 'name',
 				type: 'string',
 				default: '',
-				placeholder: 'John',
-				description: 'The first name of the person',
-				displayOptions: {
-					show: {
-						operation: ['findFromName'],
-					},
-				},
-			},
-			{
-				displayName: 'Last Name',
-				name: 'lastName',
-				type: 'string',
-				default: '',
-				placeholder: 'Doe',
-				description: 'The last name of the person',
+				placeholder: 'John Doe',
+				description: 'The full name of the person',
 				displayOptions: {
 					show: {
 						operation: ['findFromName'],
@@ -92,18 +79,12 @@ export class FindyMail implements INodeType {
 				},
 				options: [
 					{
-						displayName: 'Company',
-						name: 'company',
+						displayName: 'Webhook URL',
+						name: 'webhook_url',
 						type: 'string',
 						default: '',
-						description: 'The company name (optional)',
-					},
-					{
-						displayName: 'Country',
-						name: 'country',
-						type: 'string',
-						default: '',
-						description: 'The country code (optional)',
+						placeholder: 'https://your-webhook-url.com',
+						description: 'URL to receive the result asynchronously (optional)',
 					},
 				],
 			},
@@ -119,32 +100,26 @@ export class FindyMail implements INodeType {
 				const operation = this.getNodeParameter('operation', itemIndex) as string;
 
 				if (operation === 'findFromName') {
-					const firstName = this.getNodeParameter('firstName', itemIndex) as string;
-					const lastName = this.getNodeParameter('lastName', itemIndex) as string;
+					const name = this.getNodeParameter('name', itemIndex) as string;
 					const domain = this.getNodeParameter('domain', itemIndex) as string;
 					const additionalOptions = this.getNodeParameter('additionalOptions', itemIndex) as {
-						company?: string;
-						country?: string;
+						webhook_url?: string;
 					};
 
 					// Validate required parameters
-					if (!firstName || !lastName || !domain) {
-						throw new NodeOperationError(this.getNode(), 'First name, last name, and domain are required parameters');
+					if (!name || !domain) {
+						throw new NodeOperationError(this.getNode(), 'Name and domain are required parameters');
 					}
 
 					// Prepare request body
 					const requestBody: any = {
-						first_name: firstName,
-						last_name: lastName,
+						name: name,
 						domain: domain,
 					};
 
 					// Add optional parameters if provided
-					if (additionalOptions.company) {
-						requestBody.company = additionalOptions.company;
-					}
-					if (additionalOptions.country) {
-						requestBody.country = additionalOptions.country;
+					if (additionalOptions.webhook_url) {
+						requestBody.webhook_url = additionalOptions.webhook_url;
 					}
 
 					// Make API request
@@ -153,7 +128,7 @@ export class FindyMail implements INodeType {
 						'findyMailApi',
 						{
 							method: 'POST',
-							url: 'https://api.findymail.com/v1/email-finder/find-from-name',
+							url: 'https://app.findymail.com/api/search/name',
 							body: requestBody,
 							json: true,
 						},
