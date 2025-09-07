@@ -143,6 +143,22 @@ export class FindyMail implements INodeType {
 				},
 			},
 			{
+				displayName: 'Job Titles',
+				name: 'jobTitles',
+				type: 'string',
+				typeOptions: {
+					multipleValues: true,
+				},
+				default: [],
+				placeholder: 'Software Engineer',
+				description: 'Job titles to search for (one per line)',
+				displayOptions: {
+					show: {
+						operation: ['findEmployees'],
+					},
+				},
+			},
+			{
 				displayName: 'Additional Options',
 				name: 'additionalOptions',
 				type: 'collection',
@@ -339,6 +355,7 @@ export class FindyMail implements INodeType {
 					returnData.push(responseData);
 				} else if (operation === 'findEmployees') {
 					const companyDomain = this.getNodeParameter('companyDomain', itemIndex) as string;
+					const jobTitles = this.getNodeParameter('jobTitles', itemIndex) as string[];
 					const additionalOptions = this.getNodeParameter('additionalOptions', itemIndex) as {
 						webhook_url?: string;
 					};
@@ -348,9 +365,21 @@ export class FindyMail implements INodeType {
 						throw new NodeOperationError(this.getNode(), 'Company domain is a required parameter');
 					}
 
+					if (!jobTitles || jobTitles.length === 0) {
+						throw new NodeOperationError(this.getNode(), 'At least one job title is required');
+					}
+
+					// Filter out empty job titles
+					const validJobTitles = jobTitles.filter(title => title && title.trim() !== '');
+
+					if (validJobTitles.length === 0) {
+						throw new NodeOperationError(this.getNode(), 'At least one valid job title is required');
+					}
+
 					// Prepare request body
 					const requestBody: any = {
 						website: companyDomain,
+						job_titles: validJobTitles,
 					};
 
 					// Add optional parameters if provided

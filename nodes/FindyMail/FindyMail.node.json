@@ -147,6 +147,22 @@
 			}
 		},
 		{
+			"displayName": "Job Titles",
+			"name": "jobTitles",
+			"type": "string",
+			"typeOptions": {
+				"multipleValues": true
+			},
+			"default": [],
+			"placeholder": "Software Engineer",
+			"description": "Job titles to search for (one per line)",
+			"displayOptions": {
+				"show": {
+					"operation": ["findEmployees"]
+				}
+			}
+		},
+		{
 			"displayName": "Additional Options",
 			"name": "additionalOptions",
 			"type": "collection",
