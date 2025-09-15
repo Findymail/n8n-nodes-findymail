@@ -32,34 +32,34 @@ export class FindyMail implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'Find From Name',
+						name: 'Find Email From Linkedin',
+						value: 'findFromLinkedin',
+						description: 'Find email address from Linkedin profile URL',
+						action: 'Find email from linkedin',
+					},
+					{
+						name: 'Find Email From Name + Company',
 						value: 'findFromName',
 						description: 'Find email address from name and company',
 						action: 'Find email from name',
-					},
-					{
-						name: 'Find From Linkedin',
-						value: 'findFromLinkedin',
-						description: 'Find email address from Linkedin profile URL',
-						action: 'Find email from Linkedin',
-					},
-					{
-						name: 'Verify Email',
-						value: 'verifyEmail',
-						description: 'Verify if an email address is valid and deliverable',
-						action: 'Verify email',
-					},
-					{
-						name: 'Find Phone',
-						value: 'findPhone',
-						description: 'Find phone number from LinkedIn profile URL',
-						action: 'Find phone',
 					},
 					{
 						name: 'Find Employees',
 						value: 'findEmployees',
 						description: 'Find employees from a company domain',
 						action: 'Find employees',
+					},
+					{
+						name: 'Find Phone Number',
+						value: 'findPhone',
+						description: 'Find phone number from LinkedIn profile URL',
+						action: 'Find phone',
+					},
+					{
+						name: 'Verify Email',
+						value: 'verifyEmail',
+						description: 'Verify if an email address is valid and deliverable',
+						action: 'Verify email',
 					},
 				],
 				default: 'findFromName',
