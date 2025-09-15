@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-findymail",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "n8n community node for FindyMail API integration",
   "keywords": [
     "n8n-community-node-package",
@@ -32,10 +32,7 @@
     "email": "support@findymail.com",
     "url": "https://www.findymail.com"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Findymail/findymail-n8n.git"
-  },
+  "repository": "https://github.com/findymail/findymail-n8n",
   "bugs": { "url": "https://github.com/Findymail/findymail-n8n/issues" },
   "engines": {
     "node": ">=20.15"
