@@ -62,6 +62,12 @@ export class FindyMail implements INodeType {
 						description: 'Verify if an email address is valid and deliverable',
 						action: 'Verify email',
 					},
+					{
+						name: 'Reverse Email Search',
+						value: 'reverseEmail',
+						description: 'Find person information from an email address',
+						action: 'Reverse email search',
+					},
 				],
 				default: 'findFromName',
 			},
@@ -118,7 +124,20 @@ export class FindyMail implements INodeType {
 				},
 			},
 			{
-				displayName: 'Phone LinkedIn URL',
+				displayName: 'Email Address',
+				name: 'reverseEmail',
+				type: 'string',
+				default: '',
+				placeholder: 'example@example.com',
+				description: 'The email address to search for person information',
+				displayOptions: {
+					show: {
+						operation: ['reverseEmail'],
+					},
+				},
+			},
+			{
+				displayName: 'LinkedIn URL',
 				name: 'phoneLinkedinUrl',
 				type: 'string',
 				default: '',
@@ -167,7 +186,7 @@ export class FindyMail implements INodeType {
 				default: {},
 				displayOptions: {
 					show: {
-						operation: ['findFromName', 'findFromLinkedin', 'verifyEmail', 'findPhone', 'findEmployees'],
+						operation: ['findFromName', 'findFromLinkedin', 'verifyEmail', 'findPhone', 'findEmployees', 'reverseEmail'],
 					},
 				},
 				options: [
@@ -395,6 +414,41 @@ export class FindyMail implements INodeType {
 						{
 							method: 'POST',
 							url: 'https://app.findymail.com/api/search/employees',
+							body: requestBody,
+							json: true,
+						},
+					);
+
+					// Process the response
+					const responseData = {
+						json: response,
+						pairedItem: itemIndex,
+					};
+
+					returnData.push(responseData);
+				} else if (operation === 'reverseEmail') {
+					const reverseEmail = this.getNodeParameter('reverseEmail', itemIndex) as string;
+					const additionalOptions = this.getNodeParameter('additionalOptions', itemIndex) as {
+						webhook_url?: string;
+					};
+
+					// Validate required parameters
+					if (!reverseEmail) {
+						throw new NodeOperationError(this.getNode(), 'Email address is a required parameter');
+					}
+
+					// Prepare request body
+					const requestBody: any = {
+						email: reverseEmail,
+					};
+
+					// Make API request
+					const response = await this.helpers.httpRequestWithAuthentication.call(
+						this,
+						'findyMailApi',
+						{
+							method: 'POST',
+							url: 'https://app.findymail.com/api/search/reverse-email',
 							body: requestBody,
 							json: true,
 						},
