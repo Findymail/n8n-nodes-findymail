@@ -428,9 +428,6 @@ export class FindyMail implements INodeType {
 					returnData.push(responseData);
 				} else if (operation === 'reverseEmail') {
 					const reverseEmail = this.getNodeParameter('reverseEmail', itemIndex) as string;
-					const additionalOptions = this.getNodeParameter('additionalOptions', itemIndex) as {
-						webhook_url?: string;
-					};
 
 					// Validate required parameters
 					if (!reverseEmail) {
