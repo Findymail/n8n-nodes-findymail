@@ -203,7 +203,6 @@ export class FindyMail implements INodeType {
 				type: 'string',
 				default: '',
 				placeholder: 'stripe.com',
-				description: 'The company domain',
 				displayOptions: {
 					show: {
 						operation: ['enrichCompany'],
