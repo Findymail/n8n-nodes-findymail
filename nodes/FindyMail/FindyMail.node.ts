@@ -57,16 +57,16 @@ export class FindyMail implements INodeType {
 						action: 'Find phone',
 					},
 					{
-						name: 'Verify Email',
-						value: 'verifyEmail',
-						description: 'Verify if an email address is valid and deliverable',
-						action: 'Verify email',
-					},
-					{
 						name: 'Reverse Email Search',
 						value: 'reverseEmail',
 						description: 'Find person information from an email address',
 						action: 'Reverse email search',
+					},
+					{
+						name: 'Verify Email',
+						value: 'verifyEmail',
+						description: 'Verify if an email address is valid and deliverable',
+						action: 'Verify email',
 					},
 				],
 				default: 'findFromName',
