@@ -1,8 +1,8 @@
 # n8n-nodes-findymail
 
-This is an n8n community node that integrates with [FindyMail](https://app.findymail.com/), a powerful email finder and verification service. FindyMail helps you discover email addresses, verify their validity, find phone numbers, and discover employees from companies - all directly within your n8n workflows.
+This is an n8n community node that integrates with [Findymail](https://app.findymail.com/), a powerful email finder and verification service. Findymail helps you discover email addresses, verify their validity, find phone numbers, and discover employees from companies - all directly within your n8n workflows.
 
-FindyMail is a comprehensive email intelligence platform that provides accurate contact information for lead generation, sales prospecting, and business development. With this n8n node, you can automate your outreach processes and build sophisticated workflows for finding and verifying contact information.
+Findymail is a comprehensive email intelligence platform that provides accurate contact information for lead generation, sales prospecting, and business development. With this n8n node, you can automate your outreach processes and build sophisticated workflows for finding and verifying contact information.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
@@ -64,16 +64,16 @@ All operations support an optional **Webhook URL** parameter for asynchronous pr
 
 ## Credentials
 
-To use this node, you need a FindyMail API key:
+To use this node, you need a Findymail API key:
 
 ### Prerequisites
-1. Sign up for a FindyMail account at [app.findymail.com](https://app.findymail.com/)
+1. Sign up for a Findymail account at [app.findymail.com](https://app.findymail.com/)
 2. Navigate to your account settings to generate an API key
 3. Ensure you have sufficient credits for your intended operations
 
 ### Setting up Credentials
 1. In n8n, go to **Credentials** → **Add Credential**
-2. Search for "FindyMail API"
+2. Search for "Findymail API"
 3. Enter your API key
 4. Test the connection to ensure it's working
 
@@ -92,7 +92,7 @@ To use this node, you need a FindyMail API key:
 ## Usage
 
 ### Basic Email Finding Workflow
-1. Add the FindyMail node to your workflow
+1. Add the Findymail node to your workflow
 2. Select "Find from Name" operation
 3. Enter the person's name and company domain
 4. Execute to get their email address
@@ -109,7 +109,7 @@ To use this node, you need a FindyMail API key:
 4. Export clean contact lists for your CRM
 
 ### Advanced Automation
-Combine FindyMail with other n8n nodes to create sophisticated workflows:
+Combine Findymail with other n8n nodes to create sophisticated workflows:
 - **CRM Integration**: Automatically add verified contacts to your CRM
 - **Email Marketing**: Build targeted email lists for campaigns
 - **Sales Prospecting**: Create automated lead qualification processes
@@ -124,8 +124,8 @@ For high-volume operations, use webhook URLs to receive results asynchronously:
 ## Resources
 
 * [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
-* [FindyMail API Documentation](https://app.findymail.com/docs/)
-* [FindyMail Website](https://app.findymail.com/)
+* [Findymail API Documentation](https://app.findymail.com/docs/)
+* [Findymail Website](https://app.findymail.com/)
 * [n8n Documentation](https://docs.n8n.io/)
 * [n8n Community Forum](https://community.n8n.io/)
 
@@ -133,7 +133,7 @@ For high-volume operations, use webhook URLs to receive results asynchronously:
 
 For issues related to this n8n node, please create an issue in this repository.
 
-For FindyMail API issues or questions about credits and billing, please contact FindyMail support through their platform.
+For Findymail API issues or questions about credits and billing, please contact Findymail support through their platform.
 
 ## License
 
@@ -141,4 +141,4 @@ For FindyMail API issues or questions about credits and billing, please contact 
 
 ---
 
-**Note**: This is a community node and is not officially supported by n8n. Use at your own discretion and ensure you comply with FindyMail's terms of service and usage policies.
+**Note**: This is a community node and is not officially supported by n8n. Use at your own discretion and ensure you comply with Findymail's terms of service and usage policies.

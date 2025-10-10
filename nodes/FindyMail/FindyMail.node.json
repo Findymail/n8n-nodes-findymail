@@ -1,7 +1,7 @@
 {
-	"name": "FindyMail",
-	"displayName": "FindyMail",
-	"description": "Find email addresses using FindyMail API",
+	"name": "Findymail",
+	"displayName": "Findymail",
+	"description": "Find email addresses using Findymail API",
 	"icon": "file:findymail.svg",
 	"group": ["input"],
 	"codex": {
@@ -18,7 +18,7 @@
 		}
 	},
 	"defaults": {
-		"name": "FindyMail"
+		"name": "Findymail"
 	},
 	"inputs": ["main"],
 	"outputs": ["main"],

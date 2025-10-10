@@ -8,13 +8,14 @@ import { NodeConnectionType, NodeOperationError } from 'n8n-workflow';
 
 export class FindyMail implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'FindyMail',
+		displayName: 'Findymail',
 		name: 'findyMail',
+		icon: 'file:findymail.svg',
 		group: ['input'],
 		version: 1,
-		description: 'Find email addresses using FindyMail API',
+		description: 'Find email addresses using Findymail API',
 		defaults: {
-			name: 'FindyMail',
+			name: 'Findymail',
 		},
 		inputs: [NodeConnectionType.Main],
 		outputs: [NodeConnectionType.Main],

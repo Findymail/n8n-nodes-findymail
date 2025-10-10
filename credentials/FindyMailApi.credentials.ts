@@ -7,7 +7,7 @@ import {
 
 export class FindyMailApi implements ICredentialType {
 	name = 'findyMailApi';
-	displayName = 'FindyMail API';
+	displayName = 'Findymail API';
 	documentationUrl = 'https://app.findymail.com/docs/';
 	properties: INodeProperties[] = [
 		{
@@ -18,7 +18,7 @@ export class FindyMailApi implements ICredentialType {
 			typeOptions: {
 				password: true,
 			},
-			description: 'Your FindyMail API key',
+			description: 'Your Findymail API key',
 		},
 	];
 
