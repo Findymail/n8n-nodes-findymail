@@ -215,7 +215,7 @@ export class FindyMail implements INodeType {
 					}
 
 					// Make API request
-					const response = await this.helpers.requestWithAuthentication.call(
+					const response = await this.helpers.httpRequestWithAuthentication.call(
 						this,
 						'findyMailApi',
 						{
@@ -255,7 +255,7 @@ export class FindyMail implements INodeType {
 					}
 
 					// Make API request
-					const response = await this.helpers.requestWithAuthentication.call(
+					const response = await this.helpers.httpRequestWithAuthentication.call(
 						this,
 						'findyMailApi',
 						{
@@ -295,7 +295,7 @@ export class FindyMail implements INodeType {
 					}
 
 					// Make API request
-					const response = await this.helpers.requestWithAuthentication.call(
+					const response = await this.helpers.httpRequestWithAuthentication.call(
 						this,
 						'findyMailApi',
 						{
@@ -335,7 +335,7 @@ export class FindyMail implements INodeType {
 					}
 
 					// Make API request
-					const response = await this.helpers.requestWithAuthentication.call(
+					const response = await this.helpers.httpRequestWithAuthentication.call(
 						this,
 						'findyMailApi',
 						{
@@ -388,7 +388,7 @@ export class FindyMail implements INodeType {
 					}
 
 					// Make API request
-					const response = await this.helpers.requestWithAuthentication.call(
+					const response = await this.helpers.httpRequestWithAuthentication.call(
 						this,
 						'findyMailApi',
 						{
