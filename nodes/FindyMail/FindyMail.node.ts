@@ -33,6 +33,12 @@ export class FindyMail implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
+						name: 'Enrich Company',
+						value: 'enrichCompany',
+						description: 'Enrich company information',
+						action: 'Enrich company',
+					},
+					{
 						name: 'Find Email From Linkedin',
 						value: 'findFromLinkedin',
 						description: 'Find email address from Linkedin profile URL',
@@ -179,6 +185,45 @@ export class FindyMail implements INodeType {
 				},
 			},
 			{
+				displayName: 'Company Name',
+				name: 'companyName',
+				type: 'string',
+				default: '',
+				placeholder: 'Stripe',
+				description: 'The name of the company to enrich',
+				displayOptions: {
+					show: {
+						operation: ['enrichCompany'],
+					},
+				},
+			},
+			{
+				displayName: 'Company Domain',
+				name: 'companyDomain',
+				type: 'string',
+				default: '',
+				placeholder: 'stripe.com',
+				description: 'The company domain',
+				displayOptions: {
+					show: {
+						operation: ['enrichCompany'],
+					},
+				},
+			},
+			{
+				displayName: 'LinkedIn Company URL',
+				name: 'linkedinCompanyUrl',
+				type: 'string',
+				default: '',
+				placeholder: 'https://www.linkedin.com/company/findymail/',
+				description: 'The LinkedIn company profile URL',
+				displayOptions: {
+					show: {
+						operation: ['enrichCompany'],
+					},
+				},
+			},
+			{
 				displayName: 'Additional Options',
 				name: 'additionalOptions',
 				type: 'collection',
@@ -186,7 +231,7 @@ export class FindyMail implements INodeType {
 				default: {},
 				displayOptions: {
 					show: {
-						operation: ['findFromName', 'findFromLinkedin', 'verifyEmail', 'findPhone', 'findEmployees', 'reverseEmail'],
+						operation: ['findFromName', 'findFromLinkedin', 'verifyEmail', 'findPhone', 'findEmployees', 'reverseEmail', 'enrichCompany'],
 					},
 				},
 				options: [
@@ -446,6 +491,51 @@ export class FindyMail implements INodeType {
 						{
 							method: 'POST',
 							url: 'https://app.findymail.com/api/search/reverse-email',
+							body: requestBody,
+							json: true,
+						},
+					);
+
+					// Process the response
+					const responseData = {
+						json: response,
+						pairedItem: itemIndex,
+					};
+
+					returnData.push(responseData);
+				} else if (operation === 'enrichCompany') {
+					const companyName = this.getNodeParameter('companyName', itemIndex) as string;
+					const companyDomain = this.getNodeParameter('companyDomain', itemIndex) as string;
+					const linkedinCompanyUrl = this.getNodeParameter('linkedinCompanyUrl', itemIndex) as string;
+
+					// Validate that at least one parameter is provided
+					if (!companyName && !companyDomain && !linkedinCompanyUrl) {
+						throw new NodeOperationError(this.getNode(), 'At least one of Company Name, Company Domain, or LinkedIn Company URL is required');
+					}
+
+					// Prepare request body
+					const requestBody: any = {};
+
+					// Add parameters if provided
+					if (companyName) {
+						requestBody.name = companyName;
+					}
+
+					if (companyDomain) {
+						requestBody.domain = companyDomain;
+					}
+
+					if (linkedinCompanyUrl) {
+						requestBody.linkedin_url = linkedinCompanyUrl;
+					}
+
+					// Make API request
+					const response = await this.helpers.httpRequestWithAuthentication.call(
+						this,
+						'findyMailApi',
+						{
+							method: 'POST',
+							url: 'https://app.findymail.com/api/search/company',
 							body: requestBody,
 							json: true,
 						},
