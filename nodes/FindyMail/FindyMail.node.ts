@@ -230,7 +230,7 @@ export class FindyMail implements INodeType {
 				default: {},
 				displayOptions: {
 					show: {
-						operation: ['findFromName', 'findFromLinkedin', 'verifyEmail', 'findPhone', 'findEmployees', 'reverseEmail', 'enrichCompany'],
+						operation: ['findFromName', 'findFromLinkedin'],
 					},
 				},
 				options: [

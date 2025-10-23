@@ -35,11 +35,11 @@ Find email addresses using a person's full name and their company domain. Perfec
 - **Name**: The full name of the person (e.g., "John Doe")
 - **Domain**: The company domain (e.g., "example.com")
 
-### 🔗 Find from LinkedIn
-Extract email addresses directly from LinkedIn profile URLs. Ideal for converting LinkedIn connections into actionable contact information.
+### 🔗 Find from business profile
+Get email addresses directly from a business profile URL. Ideal for converting social connections into actionable contact information.
 
 **Parameters:**
-- **LinkedIn URL**: The LinkedIn profile URL (e.g., "https://www.linkedin.com/in/johndoe")
+- **Profile URL**: The profile URL (e.g., "https://www.linkedin.com/in/johndoe")
 
 ### ✅ Verify Email
 Verify if an email address is valid and deliverable. Essential for maintaining clean email lists and improving deliverability rates.
@@ -60,7 +60,7 @@ Discover employees and team members from a company domain. Perfect for building 
 - **Company Domain**: The company domain to find employees from (e.g., "example.com")
 
 ### Additional Options
-All operations support an optional **Webhook URL** parameter for asynchronous processing, allowing you to receive results via webhook when processing is complete.
+Some operations support an optional **Webhook URL** parameter for asynchronous processing, allowing you to receive results via webhook when processing is complete.
 
 ## Credentials
 
@@ -98,15 +98,16 @@ To use this node, you need a Findymail API key:
 4. Execute to get their email address
 
 ### Email Verification Pipeline
-1. Use "Find from Name" or "Find from LinkedIn" to discover emails
+1. Get an email from an external source
 2. Connect to a "Verify Email" operation
 3. Filter out invalid emails before sending campaigns
 
+Note: Email addresses provided by Findymail are already verified and do not need to be verified again
+
 ### Lead Generation Workflow
 1. Use "Find Employees" to discover team members
-2. Use "Find from LinkedIn" to get additional contact details
-3. Use "Verify Email" to ensure email quality
-4. Export clean contact lists for your CRM
+2. Use "Find from business profile" to get additional contact details
+3. Export clean contact lists for your CRM
 
 ### Advanced Automation
 Combine Findymail with other n8n nodes to create sophisticated workflows:
