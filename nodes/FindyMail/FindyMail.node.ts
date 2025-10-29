@@ -339,9 +339,6 @@ export class FindyMail implements INodeType {
 					returnData.push(responseData);
 				} else if (operation === 'verifyEmail') {
 					const email = this.getNodeParameter('email', itemIndex) as string;
-					const additionalOptions = this.getNodeParameter('additionalOptions', itemIndex) as {
-						webhook_url?: string;
-					};
 
 					// Validate required parameters
 					if (!email) {
@@ -352,11 +349,6 @@ export class FindyMail implements INodeType {
 					const requestBody: any = {
 						email: email,
 					};
-
-					// Add optional parameters if provided
-					if (additionalOptions.webhook_url) {
-						requestBody.webhook_url = additionalOptions.webhook_url;
-					}
 
 					// Make API request
 					const response = await this.helpers.httpRequestWithAuthentication.call(
@@ -379,9 +371,6 @@ export class FindyMail implements INodeType {
 					returnData.push(responseData);
 				} else if (operation === 'findPhone') {
 					const phoneLinkedinUrl = this.getNodeParameter('phoneLinkedinUrl', itemIndex) as string;
-					const additionalOptions = this.getNodeParameter('additionalOptions', itemIndex) as {
-						webhook_url?: string;
-					};
 
 					// Validate required parameters
 					if (!phoneLinkedinUrl) {
@@ -392,11 +381,6 @@ export class FindyMail implements INodeType {
 					const requestBody: any = {
 						linkedin_url: phoneLinkedinUrl,
 					};
-
-					// Add optional parameters if provided
-					if (additionalOptions.webhook_url) {
-						requestBody.webhook_url = additionalOptions.webhook_url;
-					}
 
 					// Make API request
 					const response = await this.helpers.httpRequestWithAuthentication.call(
@@ -420,9 +404,6 @@ export class FindyMail implements INodeType {
 				} else if (operation === 'findEmployees') {
 					const companyDomain = this.getNodeParameter('companyDomain', itemIndex) as string;
 					const jobTitles = this.getNodeParameter('jobTitles', itemIndex) as string[];
-					const additionalOptions = this.getNodeParameter('additionalOptions', itemIndex) as {
-						webhook_url?: string;
-					};
 
 					// Validate required parameters
 					if (!companyDomain) {
@@ -445,11 +426,6 @@ export class FindyMail implements INodeType {
 						website: companyDomain,
 						job_titles: validJobTitles,
 					};
-
-					// Add optional parameters if provided
-					if (additionalOptions.webhook_url) {
-						requestBody.webhook_url = additionalOptions.webhook_url;
-					}
 
 					// Make API request
 					const response = await this.helpers.httpRequestWithAuthentication.call(
