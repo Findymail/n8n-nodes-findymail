@@ -439,13 +439,19 @@ export class FindyMail implements INodeType {
 						},
 					);
 
-					// Process the response
-					const responseData = {
-						json: response,
-						pairedItem: itemIndex,
-					};
-
-					returnData.push(responseData);
+					if (Array.isArray(response)) {
+						for (const employee of response) {
+							returnData.push({
+								json: employee,
+								pairedItem: itemIndex,
+							});
+						}
+					} else {
+						returnData.push({
+							json: response,
+							pairedItem: itemIndex,
+						});
+					}
 				} else if (operation === 'reverseEmail') {
 					const reverseEmail = this.getNodeParameter('reverseEmail', itemIndex) as string;
 
