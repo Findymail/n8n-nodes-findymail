@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-findymail",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "n8n community node for Findymail API integration",
   "keywords": [
     "n8n-community-node-package",
